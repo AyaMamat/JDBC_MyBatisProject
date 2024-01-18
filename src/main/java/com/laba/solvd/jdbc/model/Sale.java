@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Sale {
+
     private int saleId;
     private double totalPrice;
     private Date saleDate;
