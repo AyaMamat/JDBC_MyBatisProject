@@ -13,7 +13,7 @@ import java.io.InputStream;
 
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
-public class MyBatis implements IConnectionMethod {
+public class MyBatisSQLFactory implements IConnectionMethod {
     private static final Logger logger = LogManager.getLogger(MyBatis.class.getName());
 
     private static MyBatis INSTANCE;
