@@ -36,7 +36,6 @@ public class SalesService implements ISalesService {
 
     @Override
     public Sale create(Sale sale) {
-
         if (sale.getEmployee() != null) {
             Employee employee = employeeService.create(sale.getEmployee());
             sale.setEmployee(employee);
