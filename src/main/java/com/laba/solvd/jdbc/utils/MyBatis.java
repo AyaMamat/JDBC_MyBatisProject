@@ -14,7 +14,8 @@ import java.io.InputStream;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class MyBatisSQLFactory implements IConnectionMethod {
-    private static final Logger logger = LogManager.getLogger(MyBatis.class.getName());
+    
+    private static final Logger LOGGER = LogManager.getLogger(MyBatis.class.getName());
 
     private static MyBatis INSTANCE;
     private static SqlSessionFactory sqlSessionFactory;
