@@ -17,7 +17,7 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class EmployeeService implements IEmployeeService {
-    private static final Logger logger = LogManager.getLogger(EmployeeService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(EmployeeService.class.getName());
     private final IEmployeeDAO employeeDAO;
     private final IPersonService personService;
     private final IPositionService positionService;
@@ -27,16 +27,15 @@ public class EmployeeService implements IEmployeeService {
         this.positionService = positionService;
         if (!connectionFactory.isMyBatis()) {
             this.employeeDAO = new EmployeeDAO();
-            logger.info("Using JDBC Employee repository");
+            LOGGER.info("Using JDBC Employee repository");
         } else {
             this.employeeDAO = new EmployeeMapper();
-            logger.info("Using MyBatis Employee mapper");
+            LOGGER.info("Using MyBatisSQLFactory Employee mapper");
         }
     }
 
     @Override
     public Employee create(Employee employee) {
-
         if (employee.getPerson() != null) {
             Person person = personService.create(employee.getPerson());
             employee.setPerson(person);

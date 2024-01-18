@@ -17,26 +17,25 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class PrescriptionService implements IPrescriptionService {
-    private static final Logger logger = LogManager.getLogger(PrescriptionService.class.getName());
-    private final IPrescriptionDAO prescriptionDAO;
-    private final IDoctorService doctorService;
-    private final ICustomerService customerService;
+    private static final Logger LOGGER = LogManager.getLogger(PrescriptionService.class.getName());
+    private  IPrescriptionDAO prescriptionDAO;
+    private  IDoctorService doctorService;
+    private  ICustomerService customerService;
 
     public PrescriptionService(IDoctorService doctorService, ICustomerService customerService) {
         this.doctorService = doctorService;
         this.customerService = customerService;
         if (!connectionFactory.isMyBatis()) {
             this.prescriptionDAO = new PrescriptionDAO();
-            logger.info("Using JDBC Prescription repository");
+            LOGGER.info("Using JDBC Prescription repository");
         } else {
             this.prescriptionDAO = new PrescriptionMapper();
-            logger.info("Using MyBatis Prescription mapper");
+            LOGGER.info("Using MyBatisSQLFactory Prescription mapper");
         }
     }
 
     @Override
     public Prescription create(Prescription prescription) {
-
         if (prescription.getDoctor() != null) {
             Doctor doctor = doctorService.create(prescription.getDoctor());
             prescription.setDoctor(doctor);

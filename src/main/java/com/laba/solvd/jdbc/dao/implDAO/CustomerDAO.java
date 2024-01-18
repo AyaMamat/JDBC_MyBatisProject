@@ -14,9 +14,9 @@ import java.util.List;
 
 public class CustomerDAO implements ICustomerDAO {
 
-    private ConnectionPool connectionPool=ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class);
     PersonDAO personDAO = new PersonDAO();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Customer customer) {
@@ -48,7 +48,7 @@ public class CustomerDAO implements ICustomerDAO {
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                if(rs.next()) {
+                if (rs.next()) {
                     customer = new Customer();
                     Person person = new Person();
                     person.setPersonId(rs.getInt("person_id"));
@@ -57,7 +57,7 @@ public class CustomerDAO implements ICustomerDAO {
                     person.setBirthDate(rs.getDate("birth_date").toLocalDate());
                     person.setEmail(rs.getString("email"));
                     person.setPhone(rs.getString("phone"));
-                    Address address=new Address();
+                    Address address = new Address();
                     address.setAddressId(rs.getInt("address_id"));
                     address.setStreet(rs.getString("street"));
                     address.setCity(rs.getString("city"));
@@ -78,7 +78,8 @@ public class CustomerDAO implements ICustomerDAO {
             }
         }
         return customer;
-}
+    }
+
     @Override
     public void updateEntity(Customer customer) {
         Connection connection = connectionPool.getConnection();
@@ -88,9 +89,9 @@ public class CustomerDAO implements ICustomerDAO {
             ps.setInt(1, customer.getPerson().getPersonId());
             ps.setInt(2, customer.getCustomerId());
             ps.executeUpdate();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -99,14 +100,14 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public void removeEntityById(int id) {
-        Connection connection=connectionPool.getConnection();
-        String query="DELETE FROM customers WHERE customer_id = (?);";
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setInt(1,id);
+        Connection connection = connectionPool.getConnection();
+        String query = "DELETE FROM customers WHERE customer_id = (?);";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
             ps.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -115,12 +116,12 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public List<Customer> getAll() {
-        Connection connection=connectionPool.getConnection();
-        String query="SELECT * FROM customers;";
-        List<Customer> customers=new ArrayList<>();
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            try(ResultSet rs=ps.executeQuery()){
-                while(rs.next()){
+        Connection connection = connectionPool.getConnection();
+        String query = "SELECT * FROM customers;";
+        List<Customer> customers = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
                     Customer customer = new Customer();
                     customer.setCustomerId(rs.getInt("customer_id"));
                     int personId = rs.getInt("person_id");
@@ -129,9 +130,9 @@ public class CustomerDAO implements ICustomerDAO {
                     customers.add(customer);
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -150,8 +151,8 @@ public class CustomerDAO implements ICustomerDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Customer customer = new Customer();
-                    Person person= new Person();
-                    Address address=new Address();
+                    Person person = new Person();
+                    Address address = new Address();
                     person.setPersonId(rs.getInt("person_id"));
                     person.setFirstName(rs.getString("first_name"));
                     person.setLastName(rs.getString("last_name"));
@@ -171,7 +172,7 @@ public class CustomerDAO implements ICustomerDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error( e);
+            LOGGER.error(e);
         } finally {
             connectionPool.releaseConnection(connection);
         }

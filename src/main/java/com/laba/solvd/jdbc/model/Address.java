@@ -3,6 +3,7 @@ package com.laba.solvd.jdbc.model;
 import java.util.Objects;
 
 public class Address {
+
     private int addressId;
     private String street;
     private String city;

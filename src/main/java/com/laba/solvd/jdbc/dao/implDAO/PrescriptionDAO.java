@@ -14,8 +14,8 @@ import java.util.List;
 
 public class PrescriptionDAO implements IPrescriptionDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(PrescriptionDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Prescription prescription) {

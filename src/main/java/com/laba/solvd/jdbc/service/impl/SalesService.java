@@ -17,7 +17,7 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class SalesService implements ISalesService {
-    private static final Logger logger = LogManager.getLogger(SalesService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(SalesService.class.getName());
     private final ISalesDAO salesDAO;
     private final IEmployeeService employeeService;
     private final IPrescriptionService prescriptionService;
@@ -27,10 +27,10 @@ public class SalesService implements ISalesService {
         this.prescriptionService = prescriptionService;
         if (!connectionFactory.isMyBatis()) {
             this.salesDAO = new SaleDAO();
-            logger.info("Using JDBC Sales repository");
+            LOGGER.info("Using JDBC Sales repository");
         } else {
             this.salesDAO = new SalesMapper();
-            logger.info("Using MyBatis Sales mapper");
+            LOGGER.info("Using MyBatisSQLFactory Sales mapper");
         }
     }
 

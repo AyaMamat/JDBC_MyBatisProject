@@ -3,6 +3,7 @@ package com.laba.solvd.jdbc.model;
 import java.util.Objects;
 
 public class Medication {
+
     private int medicationId;
     private String name;
     private String description;

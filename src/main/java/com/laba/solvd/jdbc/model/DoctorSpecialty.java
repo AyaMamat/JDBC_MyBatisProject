@@ -4,6 +4,7 @@ package com.laba.solvd.jdbc.model;
 import java.util.Objects;
 
 public class DoctorSpecialty {
+
     private int doctorSpecialtyId;
     private String title;
 

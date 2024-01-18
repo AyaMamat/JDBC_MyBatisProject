@@ -18,7 +18,7 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class DoctorService implements IDoctorService {
-    private static final Logger logger = LogManager.getLogger(DoctorService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DoctorService.class.getName());
     private final IDoctorDAO doctorDAO;
     private final IPersonService personService;
     private final IDoctorSpecialtyService doctorSpecialtyService;
@@ -29,17 +29,17 @@ public class DoctorService implements IDoctorService {
         this.doctorSpecialtyService = doctorSpecialtyService;
         if (!connectionFactory.isMyBatis()) {
             this.doctorDAO = new DoctorDAO();
-            logger.info("Using JDBC Doctor repository");
+            LOGGER.info("Using JDBC Doctor repository");
         } else {
             this.doctorDAO = new DoctorMapper();
-            logger.info("Using MyBatis Doctor mapper");
+            LOGGER.info("Using MyBatisSQLFactory Doctor mapper");
         }
     }
 
     @Override
     public Doctor create(Doctor doctor) {
-        if(doctor.getPerson()!=null){
-            Person person=personService.create(doctor.getPerson());
+        if (doctor.getPerson() != null) {
+            Person person = personService.create(doctor.getPerson());
             doctor.setPerson(person);
         }
 

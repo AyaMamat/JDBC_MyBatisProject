@@ -5,7 +5,7 @@ import com.laba.solvd.jdbc.model.Prescription;
 
 import java.util.List;
 
-public interface IPrescriptionDAO extends IBaseDAO<Prescription>{
+public interface IPrescriptionDAO extends IBaseDAO<Prescription> {
 
     List<Prescription> getPrescriptionByCustomerId(Customer customerId);
 }

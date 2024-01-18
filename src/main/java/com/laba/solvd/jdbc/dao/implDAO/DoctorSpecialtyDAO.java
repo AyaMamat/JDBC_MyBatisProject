@@ -12,8 +12,8 @@ import java.util.List;
 
 public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(DoctorSpecialtyDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(DoctorSpecialty doctorSpecialty) {
@@ -83,14 +83,14 @@ public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO {
 
     @Override
     public void removeEntityById(int id) {
-        Connection connection=connectionPool.getConnection();
-        String query="DELETE FROM doctor_specialties WHERE doctor_specialty_id = (?);";
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setInt(1,id);
+        Connection connection = connectionPool.getConnection();
+        String query = "DELETE FROM doctor_specialties WHERE doctor_specialty_id = (?);";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
             ps.execute();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -99,22 +99,22 @@ public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO {
 
     @Override
     public List<DoctorSpecialty> getAll() {
-        Connection connection=connectionPool.getConnection();
-        String query="SELECT * FROM doctor_specialties;";
-        List<DoctorSpecialty> specialties=new ArrayList<>();
-        try(PreparedStatement ps=connection.prepareStatement(query)){
+        Connection connection = connectionPool.getConnection();
+        String query = "SELECT * FROM doctor_specialties;";
+        List<DoctorSpecialty> specialties = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.execute();
-            try(ResultSet rs=ps.getResultSet()){
-                while(rs.next()){
+            try (ResultSet rs = ps.getResultSet()) {
+                while (rs.next()) {
                     DoctorSpecialty doctorSpecialty = new DoctorSpecialty();
                     doctorSpecialty.setDoctorSpecialtyId(rs.getInt("doctor_specialty_id"));
                     doctorSpecialty.setTitle(rs.getString("title"));
                     specialties.add(doctorSpecialty);
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -126,12 +126,12 @@ public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO {
     public DoctorSpecialty getDoctorSpecialtyByTitle(String title) {
         Connection connection = connectionPool.getConnection();
         String query = "SELECT * FROM doctor_specialties WHERE title = ?;";
-        DoctorSpecialty doctorSpecialty =new DoctorSpecialty(); ;
+        DoctorSpecialty doctorSpecialty = new DoctorSpecialty();
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, title);
             try (ResultSet rs = ps.executeQuery()) {
-                if(rs.next()) {
+                if (rs.next()) {
                     doctorSpecialty.setDoctorSpecialtyId(rs.getInt("doctor_specialty_id"));
                     doctorSpecialty.setTitle(rs.getString("title"));
                 }

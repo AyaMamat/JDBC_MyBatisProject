@@ -13,17 +13,16 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class AddressService implements IAddressService {
-    private static final Logger logger = LogManager.getLogger(AddressService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(AddressService.class.getName());
     private final IAddressDAO addressDAO;
 
     public AddressService() {
         if (!connectionFactory.isMyBatis()) {
             this.addressDAO = new AddressDAO();
-            logger.info("Using JDBC Airline repository");
-        }
-        else {
+            LOGGER.info("Using JDBC Airline repository");
+        } else {
             this.addressDAO = new AddressMapper();
-            logger.info("Using MyBatis Airline mapper");
+            LOGGER.info("Using MyBatisSQLFactory Airline mapper");
         }
     }
 

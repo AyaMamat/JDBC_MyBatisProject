@@ -3,6 +3,7 @@ package com.laba.solvd.jdbc.model;
 import java.util.Objects;
 
 public class Employee {
+
     private int employeeId;
     private Person person;
     private Position position;

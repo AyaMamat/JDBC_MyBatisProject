@@ -14,15 +14,21 @@ import java.io.InputStream;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class MyBatisSQLFactory implements IConnectionMethod {
-    
-    private static final Logger LOGGER = LogManager.getLogger(MyBatis.class.getName());
 
-    private static MyBatis INSTANCE;
-    private static SqlSessionFactory sqlSessionFactory;
+    private static final Logger LOGGER = LogManager.getLogger(MyBatisSQLFactory.class.getName());
+
     private static final String path = "mybatis-config.xml";
+    private static MyBatisSQLFactory INSTANCE;
+    private static SqlSessionFactory sqlSessionFactory;
 
-    public MyBatis() {
+    public MyBatisSQLFactory() {
         initialize();
+    }
+
+    public static synchronized MyBatisSQLFactory getInstance() {
+        if (INSTANCE == null && connectionFactory.isMyBatis())
+            INSTANCE = (MyBatisSQLFactory) connectionFactory.getMethod();
+        return INSTANCE;
     }
 
     @Override
@@ -31,14 +37,8 @@ public class MyBatisSQLFactory implements IConnectionMethod {
             InputStream inputStream = Resources.getResourceAsStream(path);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         } catch (IOException e) {
-            logger.error("Failed to find MyBatis configuration file");
+            LOGGER.error("Failed to find MyBatisSQLFactory configuration file");
         }
-    }
-
-    public static synchronized MyBatis getInstance() {
-        if (INSTANCE == null && connectionFactory.isMyBatis())
-            INSTANCE = (MyBatis) connectionFactory.getMethod();
-        return INSTANCE;
     }
 
     public SqlSession getSession() {

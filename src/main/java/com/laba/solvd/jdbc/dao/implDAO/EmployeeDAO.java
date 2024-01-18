@@ -15,21 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAO implements IEmployeeDAO {
-    private ConnectionPool connectionPool=ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(EmployeeDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+
     @Override
     public void saveEntity(Employee employee) {
-        Connection connection=connectionPool.getConnection();
-        String query="INSERT INTO employees (employee_id, person_id, position_id) VALUES (?, ?, ?);";
+        Connection connection = connectionPool.getConnection();
+        String query = "INSERT INTO employees (employee_id, person_id, position_id) VALUES (?, ?, ?);";
 
-        try(PreparedStatement ps=connection.prepareStatement(query)){
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, employee.getEmployeeId());
             ps.setInt(2, employee.getPerson().getPersonId());
             ps.setInt(3, employee.getPosition().getPositionId());
             ps.execute();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -39,14 +40,14 @@ public class EmployeeDAO implements IEmployeeDAO {
 
     @Override
     public Employee getEntityByID(int id) {
-        Connection connection=connectionPool.getConnection();
-        String query="SELECT * FROM employees WHERE employee_id =(?);";
+        Connection connection = connectionPool.getConnection();
+        String query = "SELECT * FROM employees WHERE employee_id =(?);";
         Employee employee = new Employee();
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setInt(1,id);
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
             ps.execute();
-            try(ResultSet rs=ps.getResultSet()){
-                while(rs.next()){
+            try (ResultSet rs = ps.getResultSet()) {
+                while (rs.next()) {
                     employee.setEmployeeId(rs.getInt("employee_id"));
                     PersonDAO personDAO = new PersonDAO();
                     PositionDAO positionDAO = new PositionDAO();
@@ -54,9 +55,9 @@ public class EmployeeDAO implements IEmployeeDAO {
                     employee.setPosition(positionDAO.getEntityByID(rs.getInt("position_id")));
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -120,7 +121,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error( e);
+            LOGGER.error(e);
         } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
@@ -150,7 +151,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                     person.setBirthDate(rs.getDate("birth_date").toLocalDate());
                     person.setEmail(rs.getString("email"));
                     person.setPhone(rs.getString("phone"));
-                    AddressDAO addressDAO=new AddressDAO();
+                    AddressDAO addressDAO = new AddressDAO();
                     person.setAddress(addressDAO.getEntityByID(rs.getInt("address_id")));
                     employee.setPerson(person);
                     PositionDAO positionDAO = new PositionDAO();

@@ -12,8 +12,8 @@ import java.util.List;
 
 public class PositionDAO implements IPositionDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(AddressDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Position position) {
@@ -113,15 +113,15 @@ public class PositionDAO implements IPositionDAO {
                     positions.add(position);
                 }
             }
-            } catch (SQLException e) {
-                LOGGER.error(e);
-            } finally {
-                if (connection != null) {
-                    connectionPool.releaseConnection(connection);
-                }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
             }
-            return positions;
         }
+        return positions;
+    }
 
     @Override
     public List<Position> getPositionByTitle(String title) {

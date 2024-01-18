@@ -5,7 +5,7 @@ import com.laba.solvd.jdbc.model.DoctorSpecialty;
 
 import java.util.List;
 
-public interface IDoctorDAO extends IBaseDAO<Doctor>{
+public interface IDoctorDAO extends IBaseDAO<Doctor> {
 
     List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id);
 }

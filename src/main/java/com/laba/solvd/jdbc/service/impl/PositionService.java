@@ -13,22 +13,21 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class PositionService implements IPositionService {
-    private static final Logger logger = LogManager.getLogger(PositionService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(PositionService.class.getName());
     private final IPositionDAO positionDAO;
 
     public PositionService() {
-   if (!connectionFactory.isMyBatis()) {
-        this.positionDAO = new PositionDAO();
-        logger.info("Using JDBC Position repository");
-    } else {
-        this.positionDAO = new PositionMapper();
-        logger.info("Using MyBatis Position mapper");
+        if (!connectionFactory.isMyBatis()) {
+            this.positionDAO = new PositionDAO();
+            LOGGER.info("Using JDBC Position repository");
+        } else {
+            this.positionDAO = new PositionMapper();
+            LOGGER.info("Using MyBatisSQLFactory Position mapper");
+        }
     }
-}
 
     @Override
     public Position create(Position position) {
-
         positionDAO.saveEntity(position);
         return position;
     }

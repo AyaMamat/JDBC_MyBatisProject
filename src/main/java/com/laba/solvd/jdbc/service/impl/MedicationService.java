@@ -15,7 +15,7 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class MedicationService implements IMedicationService {
-    private static final Logger logger = LogManager.getLogger(MedicationService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(MedicationService.class.getName());
     private final IMedicationDAO medicationDAO;
     private final ISupplierService supplierService;
 
@@ -23,16 +23,15 @@ public class MedicationService implements IMedicationService {
         this.supplierService = supplierService;
         if (!connectionFactory.isMyBatis()) {
             this.medicationDAO = new MedicationDAO();
-            logger.info("Using JDBC Medication repository");
+            LOGGER.info("Using JDBC Medication repository");
         } else {
             this.medicationDAO = new MedicationMapper();
-            logger.info("Using MyBatis Medication mapper");
+            LOGGER.info("Using MyBatisSQLFactory Medication mapper");
         }
     }
 
     @Override
     public Medication create(Medication medication) {
-
         if (medication.getSupplier() != null) {
             Supplier supplier = supplierService.create(medication.getSupplier());
             medication.setSupplier(supplier);

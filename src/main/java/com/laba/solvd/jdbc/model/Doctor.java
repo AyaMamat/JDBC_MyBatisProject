@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Doctor {
+
     private int doctorId;
     private Person person;
     private List<DoctorSpecialty> specialties;

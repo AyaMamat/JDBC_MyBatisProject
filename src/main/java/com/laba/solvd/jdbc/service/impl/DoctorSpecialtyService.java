@@ -13,16 +13,16 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class DoctorSpecialtyService implements IDoctorSpecialtyService {
-    private static final Logger logger = LogManager.getLogger(DoctorSpecialtyService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DoctorSpecialtyService.class.getName());
     private final IDoctorSpecialtyDAO doctorSpecialtyDAO;
 
     public DoctorSpecialtyService() {
         if (!connectionFactory.isMyBatis()) {
             this.doctorSpecialtyDAO = new DoctorSpecialtyDAO();
-            logger.info("Using JDBC DoctorSpecialty repository");
+            LOGGER.info("Using JDBC DoctorSpecialty repository");
         } else {
             this.doctorSpecialtyDAO = new DoctorSpecialtyMapper();
-            logger.info("Using MyBatis DoctorSpecialty mapper");
+            LOGGER.info("Using MyBatisSQLFactory DoctorSpecialty mapper");
         }
     }
 

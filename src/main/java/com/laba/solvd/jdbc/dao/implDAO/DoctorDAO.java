@@ -14,10 +14,10 @@ import java.util.List;
 
 public class DoctorDAO implements IDoctorDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(DoctorDAO.class);
     private final PersonDAO personDAO = new PersonDAO();
     private final DoctorSpecialtyDAO doctorSpecialtyDAO = new DoctorSpecialtyDAO();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Doctor doctor) {
@@ -52,13 +52,13 @@ public class DoctorDAO implements IDoctorDAO {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    doctor=new Doctor();
+                    doctor = new Doctor();
                     doctor.setDoctorId(rs.getInt("doctor_id"));
                     int personId = rs.getInt("person_id");
-                    Person person=personDAO.getEntityByID(personId);
+                    Person person = personDAO.getEntityByID(personId);
                     doctor.setPerson(person);
                     List<DoctorSpecialty> specialties = new ArrayList<>();
-                    specialties=getDoctorSpecialtyByDoctorId(doctor.getDoctorId());
+                    specialties = getDoctorSpecialtyByDoctorId(doctor.getDoctorId());
                     doctor.setSpecialties(specialties);
                 }
             }
@@ -114,8 +114,8 @@ public class DoctorDAO implements IDoctorDAO {
         List<Doctor> doctors = new ArrayList<>();
 
         String query = "SELECT * FROM doctors;";
-        try (PreparedStatement ps = connection.prepareStatement(query)){
-            try(ResultSet rs=ps.executeQuery()){
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Doctor doctor = new Doctor();
                     doctor.setDoctorId(rs.getInt("doctor_id"));
@@ -131,14 +131,14 @@ public class DoctorDAO implements IDoctorDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error( e);
+            LOGGER.error(e);
         }
         return doctors;
     }
 
     @Override
     public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
-        List<DoctorSpecialty> doctorSpecialtyList=new ArrayList<>();
+        List<DoctorSpecialty> doctorSpecialtyList = new ArrayList<>();
         String query = "SELECT * FROM doctor_specialties WHERE doctor_id = (?)";
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -152,13 +152,13 @@ public class DoctorDAO implements IDoctorDAO {
                 }
             }
 
-            } catch (SQLException e) {
-                LOGGER.error(e);
-            } finally {
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
         }
-            return doctorSpecialtyList;
-        }
+        return doctorSpecialtyList;
     }
+}

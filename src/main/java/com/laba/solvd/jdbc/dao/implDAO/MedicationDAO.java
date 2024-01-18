@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationDAO implements IMedicationDAO {
-    private ConnectionPool connectionPool=ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(MedicationDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Medication medication) {
@@ -52,7 +52,7 @@ public class MedicationDAO implements IMedicationDAO {
                     medication.setName(rs.getString("name"));
                     medication.setDescription(rs.getString("description"));
                     medication.setPrice(rs.getDouble("price"));
-                    SupplierDAO supplierDAO=new SupplierDAO();
+                    SupplierDAO supplierDAO = new SupplierDAO();
                     medication.setSupplier(supplierDAO.getEntityByID(rs.getInt("supplier_id")));
                 }
             }
@@ -76,7 +76,7 @@ public class MedicationDAO implements IMedicationDAO {
             ps.setInt(2, medication.getMedicationId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error( e);
+            LOGGER.error(e);
         } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
@@ -117,7 +117,7 @@ public class MedicationDAO implements IMedicationDAO {
                     medication.setName(rs.getString("name"));
                     medication.setDescription(rs.getString("description"));
                     medication.setPrice(rs.getDouble("price"));
-                    SupplierDAO supplierDAO=new SupplierDAO();
+                    SupplierDAO supplierDAO = new SupplierDAO();
                     medication.setSupplier(supplierDAO.getEntityByID(rs.getInt("supplier_id")));
                     medications.add(medication);
                 }
@@ -148,7 +148,7 @@ public class MedicationDAO implements IMedicationDAO {
                     medication.setName(rs.getString("name"));
                     medication.setDescription(rs.getString("description"));
                     medication.setPrice(rs.getDouble("price"));
-                    SupplierDAO supplierDAO=new SupplierDAO();
+                    SupplierDAO supplierDAO = new SupplierDAO();
                     medication.setSupplier(supplierDAO.getEntityByID(rs.getInt("supplier_id")));
                     medications.add(medication);
                 }

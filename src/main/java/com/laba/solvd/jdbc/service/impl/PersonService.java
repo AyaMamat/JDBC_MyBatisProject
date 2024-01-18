@@ -15,7 +15,7 @@ import java.util.List;
 import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class PersonService implements IPersonService {
-    private static final Logger logger = LogManager.getLogger(PersonService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(PersonService.class.getName());
     private final IPersonDAO personDAO;
     private final IAddressService addressService;
 
@@ -23,10 +23,10 @@ public class PersonService implements IPersonService {
         this.addressService = addressService;
         if (!connectionFactory.isMyBatis()) {
             this.personDAO = new PersonDAO();
-            logger.info("Using JDBC Person repository");
+            LOGGER.info("Using JDBC Person repository");
         } else {
             this.personDAO = new PersonMapper();
-            logger.info("Using MyBatis Person mapper");
+            LOGGER.info("Using MyBatisSQLFactory Person mapper");
         }
     }
 

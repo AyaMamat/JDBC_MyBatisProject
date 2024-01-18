@@ -16,7 +16,7 @@ import static com.laba.solvd.jdbc.Main.connectionFactory;
 
 public class CustomerService implements ICustomerService {
 
-    private static final Logger logger = LogManager.getLogger(CustomerService.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(CustomerService.class.getName());
     private final ICustomerDAO customerDAO;
     private final IPersonService personService;
 
@@ -24,17 +24,17 @@ public class CustomerService implements ICustomerService {
         this.personService = personService;
         if (!connectionFactory.isMyBatis()) {
             this.customerDAO = new CustomerDAO();
-            logger.info("Using JDBC Customer repository");
+            LOGGER.info("Using JDBC Customer repository");
         } else {
             this.customerDAO = new CustomerMapper();
-            logger.info("Using MyBatis Customer mapper");
+            LOGGER.info("Using MyBatisSQLFactory Customer mapper");
         }
     }
 
     @Override
     public Customer create(Customer customer) {
-        if(customer.getPerson()!=null){
-            Person person=personService.create(customer.getPerson());
+        if (customer.getPerson() != null) {
+            Person person = personService.create(customer.getPerson());
             customer.setPerson(person);
         }
         customerDAO.saveEntity(customer);

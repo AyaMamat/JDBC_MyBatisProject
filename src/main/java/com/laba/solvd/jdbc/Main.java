@@ -18,17 +18,16 @@ public class Main {
     public static ConnectionMethodFactory connectionFactory = new ConnectionMethodFactory();
 
 
-
     public static void main(String[] args) {
-        Person person=new Person();
-        IAddressService addressService=new AddressService();
-        IPersonService personService=new PersonService(addressService);
+        Person person = new Person();
+        IAddressService addressService = new AddressService();
+        IPersonService personService = new PersonService(addressService);
         person.setFirstName("Kayla");
         person.setLastName("Kobe");
         person.setBirthDate(LocalDate.parse("2022-03-03"));
         person.setEmail("kayla.kobe@gmail.com");
         person.setPhone("6543334567");
-        Address address=new Address();
+        Address address = new Address();
         address.setStreet("3552 N Winston Str");
         address.setCity("Chicago");
         address.setState("IL");

@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 public class SaleDAO implements ISalesDAO {
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(SaleDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Sale sale) {

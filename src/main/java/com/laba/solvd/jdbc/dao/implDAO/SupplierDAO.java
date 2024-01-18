@@ -12,8 +12,8 @@ import java.util.List;
 
 public class SupplierDAO implements ISupplierDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(SupplierDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Supplier supplier) {

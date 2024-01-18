@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Prescription {
+
     private int prescriptionId;
     private Date prescriptionDate;
     private int quantity;

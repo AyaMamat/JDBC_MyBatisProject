@@ -12,14 +12,14 @@ import java.util.List;
 
 public class PersonDAO implements IPersonDAO {
 
-    private ConnectionPool connectionPool=ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(PersonDAO.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void saveEntity(Person person) {
-        Connection connection=connectionPool.getConnection();
-        String query="INSERT INTO people (person_id, first_name, last_name, birth_date, email, phone, address_id) VALUES (?, ?, ?, ?, ?, ?, ?);";
-        try(PreparedStatement ps=connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
+        Connection connection = connectionPool.getConnection();
+        String query = "INSERT INTO people (person_id, first_name, last_name, birth_date, email, phone, address_id) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(2, person.getFirstName());
             ps.setString(3, person.getLastName());
             ps.setDate(4, Date.valueOf(person.getBirthDate()));
@@ -33,9 +33,9 @@ public class PersonDAO implements IPersonDAO {
                     person.setPersonId(rs.getInt(1));
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
-        }finally{
+        } finally {
             if (connection != null) {
                 connectionPool.releaseConnection(connection);
             }
@@ -153,8 +153,8 @@ public class PersonDAO implements IPersonDAO {
             ps.setDate(1, Date.valueOf(birthDate));
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Person person=new Person();
-                    AddressDAO addressDAO=new AddressDAO();
+                    Person person = new Person();
+                    AddressDAO addressDAO = new AddressDAO();
                     person.setPersonId(rs.getInt("person_id"));
                     person.setFirstName(rs.getString("first_name"));
                     person.setLastName(rs.getString("last_name"));

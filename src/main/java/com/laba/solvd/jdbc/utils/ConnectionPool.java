@@ -8,72 +8,65 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import static com.laba.solvd.jdbc.Main.connectionFactory;
+import static com.laba.solvd.jdbc.utils.DBConfig.*;
 
-public class ConnectionPool  implements IConnectionMethod {
-    private static final Logger logger = LogManager.getLogger(ConnectionPool.class.getName());
+public class ConnectionPool{
+    private static List<Connection> availableConnections = new ArrayList<>();
+    private static List<Connection> usedConnections = new ArrayList<>();
 
-    private static ConnectionPool INSTANCE;
-    private ArrayList<Connection> connectionPool;
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 
-    private String driver;
-    private String url;
-    private String username;
-    private String password;
-    private int poolSize;
+    private static ConnectionPool instance;
 
     public ConnectionPool() {
-        initialize();
-    }
-
-    @Override
-    public void initialize() {
-        try {
-            driver = Config.DRIVER.getValue();
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            logger.error("Unable to find driver", e);
-        }
-
-        url = Config.URL.getValue();
-        username = Config.USERNAME.getValue();
-        password = Config.PASSWORD.getValue();
-        poolSize = Integer.parseInt(Config.POOL_SIZE.getValue());
-
-        connectionPool = new ArrayList<>(poolSize);
-        IntStream.range(0, poolSize).boxed().forEach((i -> connectionPool.add(createConnection())));
     }
 
     public static synchronized ConnectionPool getInstance() {
-        if (INSTANCE == null && !connectionFactory.isMyBatis())
-            INSTANCE = (ConnectionPool) connectionFactory.getMethod();
-        return INSTANCE;
+        if (instance == null) {
+            instance = new ConnectionPool();
+            create();
+
+        }
+        return instance;
     }
 
-    public Connection createConnection() {
-        try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            return connection;
+    public static void create() {
+        for (int count = 0; count < POOL_SIZE; count++) {
+            availableConnections.add(ConnectionPool.createConnection());
+        }
+    }
+
+    private static Connection createConnection() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            throw new RuntimeException("Unable to create connection");
+            LOGGER.info(e);
+        }
+        return conn;
+    }
+
+    public static Connection getConnection() {
+        if (availableConnections.size() == 0) {
+            LOGGER.info("No any available connection, Try connect later.");
+            return null;
+        } else {
+            Connection con = availableConnections.remove(availableConnections.size() - 1);
+            usedConnections.add(con);
+            return con;
         }
     }
 
-    public synchronized Connection getConnection() {
-        if (connectionPool.isEmpty()) {
-            try {
-                while (connectionPool.isEmpty())
-                    connectionPool.wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Connection unavailable");
-            }
+    public static boolean releaseConnection(Connection con) {
+        if (null != con) {
+            usedConnections.remove(con);
+            availableConnections.add(con);
+            return true;
         }
-
-        return connectionPool.remove(connectionPool.size() - 1);
-    }
-
-    public synchronized void releaseConnection(Connection connection) {
-        connectionPool.add(connection);
+        return false;
     }
 }
