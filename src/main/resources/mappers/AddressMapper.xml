@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IAddressDAO">
+
+    <insert id="saveEntity" parameterType="com.laba.solvd.jdbc.model.Address">
+        INSERT INTO addresses (street, city, state, zip_code, country)
+        VALUES (#{street}, #{city}, #{state}, #{zipCode}, #{country})
+    </insert>
+
+    <sql id="addressSelect">
+        SELECT * FROM addresses
+    </sql>
+
+    <select id="getEntityById" parameterType="int" resultMap="AddressResultMap">
+        <include refid="addressSelect"/>
+        WHERE address_id = #{id}
+    </select>
+
+    <update id="updateEntity" parameterType="com.laba.solvd.jdbc.model.Address">
+        UPDATE addresses
+        SET street = #{street}, city = #{city}, state = #{state}, zip_code = #{zipCode}, country = #{country}
+        WHERE address_id = #{id}
+    </update>
+
+    <delete id="removeEntityById" parameterType="com.laba.solvd.jdbc.model.Address">
+        DELETE FROM addresses WHERE address_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="AddressResultMap">
+        <include refid="addressSelect"/>
+    </select>
+
+    <select id="getAddressesByCity" parameterType="String" resultMap="AddressResultMap">
+        <include refid="addressSelect"/>
+        WHERE city = #{city}
+    </select>
+
+    <resultMap id="AddressResultMap" type="com.laba.solvd.jdbc.model.Address" autoMapping="false">
+        <id column="address_id" property="addressId"/>
+        <result column="street" property="street"/>
+        <result column="city" property="city"/>
+        <result column="state" property="state"/>
+        <result column="zip_code" property="zipCode"/>
+        <result column="country" property="country"/>
+    </resultMap>
+
+
+</mapper>

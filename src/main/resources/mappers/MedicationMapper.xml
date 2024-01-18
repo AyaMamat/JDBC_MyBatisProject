@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IMedicationDAO">
+
+    <insert id="saveEntity" keyColumn="medication_id" keyProperty="medicationId" useGeneratedKeys="true">
+        INSERT INTO medications (name, description, price, supplier_id)
+        VALUES (#{name}, #{description}, #{price}, #{supplierId})
+    </insert>
+
+    <sql id="medicationSelect">
+        SELECT * FROM medications
+    </sql>
+
+    <select id="getEntityByID" resultMap="MedicationResultMap">
+        <include refid="medicationSelect"/>
+        WHERE medication_id = #{id}
+    </select>
+
+    <update id="updateEntity">
+        UPDATE medications
+        SET name = #{name}, description = #{description}, price = #{price}, supplier_id = #{supplierId}
+        WHERE medication_id = #{medicationId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM medications WHERE medication_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="MedicationResultMap">
+        <include refid="medicationSelect"/>
+    </select>
+
+    <select id="getMedicationByName" resultMap="MedicationResultMap">
+        <include refid="medicationSelect"/>
+        WHERE name = #{name}
+    </select>
+
+    <resultMap id="MedicationResultMap" type="com.laba.solvd.jdbc.model.Medication" autoMapping="false">
+        <id column="medication_id" property="medicationId"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="price" property="price"/>
+        <result column="supplier_id" property="supplierId"/>
+    </resultMap>
+
+</mapper>

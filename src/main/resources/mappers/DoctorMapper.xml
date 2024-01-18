@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IDoctorDAO">
+
+    <insert id="saveEntity" parameterType="com.laba.solvd.jdbc.model.Doctor">
+        INSERT INTO doctors (person_id, doctor_specialty_id)
+        VALUES (#{personId}, #{doctorSpecialtyId})
+    </insert>
+
+    <sql id="doctorSelect">
+        SELECT * FROM doctors
+    </sql>
+
+    <select id="getEntityById" resultMap="DoctorResultMap">
+        <include refid="doctorSelect"/>
+        WHERE doctor_id = #{id}
+    </select>
+
+    <update id="updateEntity">
+        UPDATE doctors
+        SET person_id = #{personId}, doctor_specialty_id = #{doctorSpecialtyId}
+        WHERE doctor_id = #{doctorId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM doctors WHERE doctor_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="DoctorResultMap">
+        <include refid="doctorSelect"/>
+    </select>
+
+    <select id="getDoctorSpecialtyByDoctorId" resultMap="DoctorResultMap">
+        SELECT ds.*
+        FROM doctor_Specialties ds
+        JOIN doctors d ON ds.doctor_specialty_id = d.doctor_specialty_id
+        WHERE d.doctor_id = #{id}
+    </select>
+
+    <resultMap id="DoctorResultMap" type="com.laba.solvd.jdbc.model.Doctor" autoMapping="false">
+        <id column="doctor_id" property="doctorId"/>
+        <result column="person_id" property="personId"/>
+        <association property="doctorSpecialty" columnPrefix="doctor_specialty_" resultMap="com.laba.solvd.jdbc.dao.interfaces.IDoctorSpecialtyDAO.DoctorSpecialtyResultMap"/>
+    </resultMap>
+
+</mapper>

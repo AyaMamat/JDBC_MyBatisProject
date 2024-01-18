@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.ICustomerDAO">
+
+    <insert id="saveEntity" parameterType="com.laba.solvd.jdbc.model.Address">
+        INSERT INTO customers (person_id)
+        VALUES (#{personId})
+    </insert>
+
+    <sql id="customerSelect">
+        SELECT * FROM customers
+    </sql>
+
+    <select id="getEntityByID" resultMap="CustomerResultMap">
+        <include refid="customerSelect"/>
+        WHERE customer_id = #{id}
+    </select>
+
+    <update id="updateEntity">
+        UPDATE customers
+        SET person_id = #{personId}
+        WHERE customer_id = #{customerId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM customers WHERE customer_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="CustomerResultMap">
+        <include refid="customerSelect"/>
+    </select>
+
+    <select id="getCustomerByLastName" resultMap="CustomerResultMap">
+        <include refid="customerSelect"/>
+    </select>
+
+
+    <resultMap id="CustomerResultMap" type="com.laba.solvd.jdbc.model.Customer" autoMapping="false">
+        <id column="customer_id" property="customerId"/>
+        <result column="person_id" property="personId"/>
+    </resultMap>
+</mapper>
