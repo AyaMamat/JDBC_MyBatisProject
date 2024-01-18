@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IPersonDAO">
+    <insert id="saveEntity" parameterType="com.laba.solvd.jdbc.model.Person">
+        INSERT INTO people (first_name, last_name, birth_date, email, phone, address_id)
+        VALUES (#{firstName}, #{lastName}, #{birthDate}, #{email}, #{phone}, #{addressId})
+    </insert>
+
+    <sql id="personSelect">
+        SELECT * FROM people
+    </sql>
+
+    <select id="getEntityByID" parameterType="int" resultMap="PersonResultMap">
+        <include refid="personSelect"/>
+        WHERE person_id = #{id}
+    </select>
+
+    <update id="updateEntity" parameterType="com.laba.solvd.jdbc.model.Person">
+        UPDATE people
+        SET first_name = #{firstName}, last_name = #{lastName}, birth_date = #{birthDate},
+        email = #{email}, phone = #{phone}, address_id = #{addressId}
+        WHERE person_id = #{personId}
+    </update>
+
+    <delete id="removeEntityById" parameterType="com.laba.solvd.jdbc.model.Person">
+        DELETE FROM people WHERE person_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="PersonResultMap">
+        <include refid="personSelect"/>
+    </select>
+
+    <select id="getPersonsByBirthDate" resultMap="PersonResultMap">
+        <include refid="personSelect"/>
+        WHERE birth_date = #{birthDate}
+    </select>
+
+    <resultMap id="PersonResultMap" type="com.laba.solvd.jdbc.model.Person" autoMapping="false">
+        <id column="person_id" property="personId"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="birth_date" property="birthDate"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <association property="address" columnPrefix="address_" resultMap="com.laba.solvd.jdbc.dao.interfaces.IAddressDAO.AddressResultMap"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.ISalesDAO">
+
+    <insert id="saveEntity" keyColumn="sales_id" keyProperty="salesId" useGeneratedKeys="true">
+        INSERT INTO sales (total_price, sale_date, employee_id, prescription_id)
+        VALUES (#{totalPrice}, #{saleDate}, #{employeeId}, #{prescriptionId})
+    </insert>
+
+    <sql id="saleSelect">
+        SELECT * FROM sales
+    </sql>
+
+    <select id="getEntityByID" resultMap="SaleResultMap">
+        <include refid="saleSelect"/>
+        WHERE sales_id = #{id}
+    </select>
+
+    <update id="updateEntity">
+        UPDATE sales
+        SET total_price = #{totalPrice}, sale_date = #{saleDate}, employee_id = #{employeeId},
+        prescription_id = #{prescriptionId}
+        WHERE sales_id = #{salesId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM sales WHERE sales_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="SaleResultMap">
+        <include refid="saleSelect"/>
+    </select>
+
+    <select id="getSalesByDate" resultMap="SaleResultMap">
+        <include refid="saleSelect"/>
+        WHERE sale_date = #{date}
+    </select>
+
+    <resultMap id="SaleResultMap" type="com.laba.solvd.jdbc.model.Sale" autoMapping="false">
+        <id column="sales_id" property="salesId"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="sale_date" property="saleDate"/>
+        <result column="employee_id" property="employeeId"/>
+        <result column="prescription_id" property="prescriptionId"/>
+    </resultMap>
+
+</mapper>
