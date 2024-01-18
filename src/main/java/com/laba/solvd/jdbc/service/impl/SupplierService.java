@@ -28,7 +28,6 @@ public class SupplierService implements ISupplierService {
 
     @Override
     public Supplier create(Supplier supplier) {
-
         supplierDAO.saveEntity(supplier);
         return supplier;
     }
