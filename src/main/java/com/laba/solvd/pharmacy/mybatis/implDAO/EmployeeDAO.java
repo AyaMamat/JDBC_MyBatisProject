@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class EmployeeDAO implements IEmployeeDAO<Employee> {
+
     private static final Logger LOGGER = LogManager.getLogger(EmployeeDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static IEmployeeDAO myBatisDAO;

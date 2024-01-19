@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class PositionDAO implements IPositionDAO<Position> {
+
     private static final Logger LOGGER = LogManager.getLogger(PositionDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static IPositionDAO myBatisDAO;

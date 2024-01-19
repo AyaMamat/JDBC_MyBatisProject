@@ -12,7 +12,6 @@ public class SupplierService implements ISupplierDAO<Supplier> {
 
     private static final SupplierDAO supplierDAO = (SupplierDAO) new ConnectionDAOFactory().getDAOFactory(DBConnectionType.MYBATIS).getDAO("suppliers");
 
-
     @Override
     public void saveEntity(Supplier supplier) {
         supplierDAO.saveEntity(supplier);

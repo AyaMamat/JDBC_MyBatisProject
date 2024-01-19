@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PersonDAO implements IPersonDAO<Person> {
+
     private static final Logger LOGGER = LogManager.getLogger(PersonDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static IPersonDAO myBatisDAO;

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class SupplierDAO implements ISupplierDAO<Supplier> {
+
     private static final Logger LOGGER = LogManager.getLogger(SupplierDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static ISupplierDAO myBatisDAO;

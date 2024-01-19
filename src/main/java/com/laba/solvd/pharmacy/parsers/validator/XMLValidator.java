@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class XMLValidator {
+
     public static void validateXMLWithXSD(String xmlPath, String xsdPath) {
         try (FileInputStream xmlFis = new FileInputStream(xmlPath);
              FileInputStream xsdFis = new FileInputStream(xsdPath);) {

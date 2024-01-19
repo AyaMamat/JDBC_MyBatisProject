@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class SalesDAO implements ISalesDAO<Sale> {
+
     private static final Logger LOGGER = LogManager.getLogger(SalesDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static ISalesDAO myBatisDAO;

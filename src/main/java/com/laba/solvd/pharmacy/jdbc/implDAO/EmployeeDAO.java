@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAO implements IEmployeeDAO<Employee> {
+
     private static final Logger LOGGER = LogManager.getLogger(EmployeeDAO.class);
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 

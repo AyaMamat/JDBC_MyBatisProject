@@ -27,7 +27,6 @@ public class PersonService implements IPersonDAO<Person> {
     @Override
     public void updateEntity(Person person) {
         personDAO.updateEntity(person);
-
     }
 
     @Override

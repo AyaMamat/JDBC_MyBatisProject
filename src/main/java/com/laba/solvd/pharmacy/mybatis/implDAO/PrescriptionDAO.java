@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class PrescriptionDAO implements IPrescriptionDAO<Prescription> {
+
     private static final Logger LOGGER = LogManager.getLogger(PrescriptionDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static IPrescriptionDAO myBatisDAO;

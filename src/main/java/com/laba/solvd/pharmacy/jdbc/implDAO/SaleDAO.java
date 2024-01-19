@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaleDAO implements ISalesDAO<Sale> {
+
     private static final Logger LOGGER = LogManager.getLogger(SaleDAO.class);
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 

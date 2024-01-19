@@ -1,7 +1,5 @@
 package com.laba.solvd.pharmacy.parsers.parsers;
 
-import com.laba.solvd.pharmacy.model.Address;
-import com.laba.solvd.pharmacy.model.Person;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 import org.apache.logging.log4j.LogManager;
@@ -40,6 +38,7 @@ public class JAXBParser<T> implements Parser<T> {
     }
 
     private void printObjectDetails(T object) {
+
         LOGGER.info(object.toString());
     }
 }

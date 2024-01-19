@@ -14,6 +14,7 @@ import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Sale {
+
     @JsonProperty("saleId")
     @XmlElement
     private int saleId;

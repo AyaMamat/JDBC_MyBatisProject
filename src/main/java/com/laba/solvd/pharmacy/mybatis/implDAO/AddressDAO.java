@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class AddressDAO implements IAddressDAO<Address> {
+
     private static final Logger LOGGER = LogManager.getLogger(AddressDAO.class.getName());
     private static SqlSessionFactory sqlSessionFactory;
     private static IAddressDAO myBatisDAO;

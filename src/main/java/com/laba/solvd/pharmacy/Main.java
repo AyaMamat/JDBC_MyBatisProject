@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class Main {
+
     private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
@@ -42,6 +43,5 @@ public class Main {
         PersonService personService = new PersonService();
         List<Person> people = personService.getAll();
         LOGGER.info(people);
-
     }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationDAO implements IMedicationDAO<Medication> {
+
     private static final Logger LOGGER = LogManager.getLogger(MedicationDAO.class);
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 

@@ -1,9 +1,9 @@
 package com.laba.solvd.pharmacy.factory;
 
-import com.laba.solvd.pharmacy.mybatis.implDAO.*;
 import com.laba.solvd.pharmacy.interfaces.IBaseDAO;
+import com.laba.solvd.pharmacy.mybatis.implDAO.*;
 
-public class MyBatisDAOFactory implements IBaseDAOFactory{
+public class MyBatisDAOFactory implements IBaseDAOFactory {
 
     @Override
     public IBaseDAO getDAO(String tableName) {

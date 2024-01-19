@@ -2,8 +2,6 @@ package com.laba.solvd.pharmacy.parsers.parsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.laba.solvd.pharmacy.model.Address;
-import com.laba.solvd.pharmacy.model.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
