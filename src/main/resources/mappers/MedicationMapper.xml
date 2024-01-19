@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IMedicationDAO">
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IMedicationDAO">
 
     <insert id="saveEntity" keyColumn="medication_id" keyProperty="medicationId" useGeneratedKeys="true">
         INSERT INTO medications (name, description, price, supplier_id)
@@ -36,7 +36,7 @@
         WHERE name = #{name}
     </select>
 
-    <resultMap id="MedicationResultMap" type="com.laba.solvd.jdbc.model.Medication" autoMapping="false">
+    <resultMap id="MedicationResultMap" type="com.laba.solvd.pharmacy.model.Medication" autoMapping="false">
         <id column="medication_id" property="medicationId"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IEmployeeDAO">
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IEmployeeDAO">
 
     <insert id="saveEntity" keyColumn="employee_id" keyProperty="employeeId" useGeneratedKeys="true">
         INSERT INTO employees (person_id, position_id)
@@ -31,7 +31,7 @@
         <include refid="employeeSelect"/>
     </select>
 
-    <resultMap id="EmployeeResultMap" type="com.laba.solvd.jdbc.model.Employee" autoMapping="false">
+    <resultMap id="EmployeeResultMap" type="com.laba.solvd.pharmacy.model.Employee" autoMapping="false">
         <id column="employee_id" property="employeeId"/>
         <result column="person_id" property="personId"/>
         <result column="position_id" property="positionId"/>

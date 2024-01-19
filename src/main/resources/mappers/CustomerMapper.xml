@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.ICustomerDAO">
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.ICustomerDAO">
 
-    <insert id="saveEntity" parameterType="com.laba.solvd.jdbc.model.Address">
+    <insert id="saveEntity" parameterType="com.laba.solvd.pharmacy.model.Address">
         INSERT INTO customers (person_id)
         VALUES (#{personId})
     </insert>
@@ -36,7 +36,7 @@
     </select>
 
 
-    <resultMap id="CustomerResultMap" type="com.laba.solvd.jdbc.model.Customer" autoMapping="false">
+    <resultMap id="CustomerResultMap" type="com.laba.solvd.pharmacy.model.Customer" autoMapping="false">
         <id column="customer_id" property="customerId"/>
         <result column="person_id" property="personId"/>
     </resultMap>

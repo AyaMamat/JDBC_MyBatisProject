@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <personId>234675</personId>
+    <firstName>Kayla</firstName>
+    <lastName>Meyer</lastName>
+    <birthDate>2020-03-05</birthDate>
+    <email>kayla.meyer@gmail.com</email>
+    <phone>312-456-7890</phone>
+    <address>
+        <addressId>100125</addressId>
+        <street>2353 Whipple St</street>
+        <city>Chicago</city>
+        <state>IL</state>
+        <zipCode>65332</zipCode>
+        <country>USA</country>
+    </address>
+</person>

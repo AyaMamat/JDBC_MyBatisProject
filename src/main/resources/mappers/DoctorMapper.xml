@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IDoctorDAO">
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IDoctorDAO">
 
-    <insert id="saveEntity" parameterType="com.laba.solvd.jdbc.model.Doctor">
+    <insert id="saveEntity" parameterType="com.laba.solvd.pharmacy.model.Doctor">
         INSERT INTO doctors (person_id, doctor_specialty_id)
         VALUES (#{personId}, #{doctorSpecialtyId})
     </insert>
@@ -38,10 +38,10 @@
         WHERE d.doctor_id = #{id}
     </select>
 
-    <resultMap id="DoctorResultMap" type="com.laba.solvd.jdbc.model.Doctor" autoMapping="false">
+    <resultMap id="DoctorResultMap" type="com.laba.solvd.pharmacy.model.Doctor" autoMapping="false">
         <id column="doctor_id" property="doctorId"/>
         <result column="person_id" property="personId"/>
-        <association property="doctorSpecialty" columnPrefix="doctor_specialty_" resultMap="com.laba.solvd.jdbc.dao.interfaces.IDoctorSpecialtyDAO.DoctorSpecialtyResultMap"/>
+        <association property="doctorSpecialty" columnPrefix="doctor_specialty_" resultMap="com.laba.solvd.pharmacy.interfaces.IDoctorSpecialtyDAO.DoctorSpecialtyResultMap"/>
     </resultMap>
 
 </mapper>

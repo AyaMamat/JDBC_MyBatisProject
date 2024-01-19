@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laba.solvd.jdbc.dao.interfaces.IPrescriptionDAO">
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IPrescriptionDAO">
     <insert id="saveEntity" keyColumn="prescription_id" keyProperty="prescriptionId" useGeneratedKeys="true">
         INSERT INTO Prescriptions (prescription_date, quantity, dosage, doctor_id, customer_id)
         VALUES (#{prescriptionDate}, #{quantity}, #{dosage}, #{doctorId}, #{customerId})
@@ -36,7 +36,7 @@
         WHERE customer_id = #{customerId}
     </select>
 
-    <resultMap id="PrescriptionResultMap" type="com.laba.solvd.jdbc.model.Prescription" autoMapping="false">
+    <resultMap id="PrescriptionResultMap" type="com.laba.solvd.pharmacy.model.Prescription" autoMapping="false">
         <id column="prescription_id" property="prescriptionId"/>
         <result column="prescription_date" property="prescriptionDate"/>
         <result column="quantity" property="quantity"/>

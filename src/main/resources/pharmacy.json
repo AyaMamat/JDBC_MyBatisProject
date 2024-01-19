@@ -1,0 +1,17 @@
+{
+    "personId": 234675,
+    "firstName": "Kayla",
+    "lastName": "Meyer",
+    "birthDate": "2020-03-05",
+    "email": "kayla.meyer@gmail.com",
+    "phone": "312-456-7890",
+
+     "address": {
+        "addressId": 100125,
+        "street": "2353 Whipple St",
+        "city": "Chicago",
+        "state": "IL",
+        "zipCode": 65332,
+        "country": "USA"
+      }
+}
