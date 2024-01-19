@@ -1,11 +1,14 @@
 package com.laba.solvd.pharmacy.parsers.parsers;
 
 import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
 public class JAXBParser<T> implements Parser<T> {
 
@@ -35,6 +38,20 @@ public class JAXBParser<T> implements Parser<T> {
         }
 
         return null;
+    }
+
+    public void write(T object, String path) {
+        try (FileOutputStream xmlFos = new FileOutputStream(path)) {
+            JAXBContext jaxbContext = JAXBContext.newInstance(tclass);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(object, xmlFos);
+            LOGGER.info("Successfully written to xml file", path);
+        } catch (JAXBException e) {
+            LOGGER.error("Unsuccessful", e);
+        } catch (Exception e) {
+            LOGGER.error(e);
+        }
     }
 
     private void printObjectDetails(T object) {
