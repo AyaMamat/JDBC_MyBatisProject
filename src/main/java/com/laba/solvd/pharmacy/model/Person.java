@@ -30,7 +30,7 @@ public class Person {
 
     @JsonProperty("birthDate")
     @XmlElement()
-    @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private LocalDate birthDate;
 

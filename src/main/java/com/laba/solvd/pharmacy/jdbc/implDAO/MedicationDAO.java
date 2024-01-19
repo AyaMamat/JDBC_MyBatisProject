@@ -83,7 +83,6 @@ public class MedicationDAO implements IMedicationDAO<Medication> {
                 connectionPool.releaseConnection(connection);
             }
         }
-
     }
 
     @Override
@@ -162,6 +161,5 @@ public class MedicationDAO implements IMedicationDAO<Medication> {
             }
         }
         return medications;
-
     }
 }

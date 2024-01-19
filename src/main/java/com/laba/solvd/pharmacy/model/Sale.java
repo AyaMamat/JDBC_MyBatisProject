@@ -25,7 +25,7 @@ public class Sale {
 
     @JsonProperty("saleDate")
     @XmlElement
-    @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private LocalDate saleDate;
 

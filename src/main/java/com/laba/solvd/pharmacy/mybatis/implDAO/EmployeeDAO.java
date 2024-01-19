@@ -13,8 +13,8 @@ import java.util.List;
 public class EmployeeDAO implements IEmployeeDAO<Employee> {
 
     private static final Logger LOGGER = LogManager.getLogger(EmployeeDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static IEmployeeDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private IEmployeeDAO myBatisDAO;
 
     public EmployeeDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();

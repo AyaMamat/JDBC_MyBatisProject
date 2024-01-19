@@ -14,8 +14,8 @@ import java.util.List;
 public class CustomerDAO implements ICustomerDAO<Customer> {
 
     private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static ICustomerDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private ICustomerDAO myBatisDAO;
 
     public CustomerDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();

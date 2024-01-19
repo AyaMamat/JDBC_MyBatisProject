@@ -68,7 +68,6 @@ public class CustomerDAO implements ICustomerDAO<Customer> {
                     customer.setCustomerId(rs.getInt("customer_id"));
                     customer.setPerson(person);
                 }
-
             }
         } catch (SQLException e) {
             LOGGER.error(e);

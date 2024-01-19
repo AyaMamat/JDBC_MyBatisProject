@@ -13,8 +13,8 @@ import java.util.List;
 public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO<DoctorSpecialty> {
 
     private static final Logger LOGGER = LogManager.getLogger(DoctorSpecialtyDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static IDoctorSpecialtyDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private IDoctorSpecialtyDAO myBatisDAO;
 
     public DoctorSpecialtyDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();

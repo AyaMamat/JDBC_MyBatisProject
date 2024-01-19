@@ -68,7 +68,6 @@ public class PrescriptionDAO implements IPrescriptionDAO<Prescription> {
                     CustomerDAO customerDAO = new CustomerDAO();
                     Customer customer = customerDAO.getEntityByID(rs.getInt("customer_id"));
                     prescription.setCustomer(customer);
-
                 }
             }
         } catch (SQLException e) {
@@ -142,7 +141,6 @@ public class PrescriptionDAO implements IPrescriptionDAO<Prescription> {
                     CustomerDAO customerDAO = new CustomerDAO();
                     Customer customer = customerDAO.getEntityByID(rs.getInt("customer_id"));
                     prescription.setCustomer(customer);
-
                     prescriptions.add(prescription);
                 }
             }

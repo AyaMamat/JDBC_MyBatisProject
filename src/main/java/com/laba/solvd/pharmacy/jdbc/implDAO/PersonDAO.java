@@ -18,7 +18,7 @@ public class PersonDAO implements IPersonDAO<Person> {
 
     @Override
     public void saveEntity(Person person) {
-        Connection connection = connectionPool.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         String query = "INSERT INTO people (person_id, first_name, last_name, birth_date, email, phone, address_id) VALUES (?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(2, person.getFirstName());
@@ -38,14 +38,14 @@ public class PersonDAO implements IPersonDAO<Person> {
             LOGGER.error(e);
         } finally {
             if (connection != null) {
-                connectionPool.releaseConnection(connection);
+                ConnectionPool.releaseConnection(connection);
             }
         }
     }
 
     @Override
     public Person getEntityByID(int id) {
-        Connection connection = connectionPool.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         String query = "SELECT * FROM people WHERE person_id = ?;";
         Person person = new Person();
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -66,7 +66,7 @@ public class PersonDAO implements IPersonDAO<Person> {
             LOGGER.error(e);
         } finally {
             if (connection != null) {
-                connectionPool.releaseConnection(connection);
+                ConnectionPool.releaseConnection(connection);
             }
         }
         return person;
@@ -74,7 +74,7 @@ public class PersonDAO implements IPersonDAO<Person> {
 
     @Override
     public void updateEntity(Person person) {
-        Connection connection = connectionPool.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         String query = "UPDATE people SET first_name = ?, last_name = ?, birth_date = ?, email = ?, phone = ?, address_id = ? WHERE person_id = ?;";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -90,14 +90,14 @@ public class PersonDAO implements IPersonDAO<Person> {
             LOGGER.error(e);
         } finally {
             if (connection != null) {
-                connectionPool.releaseConnection(connection);
+                ConnectionPool.releaseConnection(connection);
             }
         }
     }
 
     @Override
     public void removeEntityById(int id) {
-        Connection connection = connectionPool.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         String query = "DELETE FROM people WHERE person_id = ?;";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -107,7 +107,7 @@ public class PersonDAO implements IPersonDAO<Person> {
             LOGGER.error(e);
         } finally {
             if (connection != null) {
-                connectionPool.releaseConnection(connection);
+                ConnectionPool.releaseConnection(connection);
             }
         }
     }
@@ -115,7 +115,7 @@ public class PersonDAO implements IPersonDAO<Person> {
     @Override
     public List<Person> getAll() {
         List<Person> persons = new ArrayList<>();
-        Connection connection = connectionPool.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         String query = "SELECT * FROM people;";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -138,7 +138,7 @@ public class PersonDAO implements IPersonDAO<Person> {
             LOGGER.error(e);
         } finally {
             if (connection != null) {
-                connectionPool.releaseConnection(connection);
+                ConnectionPool.releaseConnection(connection);
             }
         }
         return persons;
@@ -147,7 +147,7 @@ public class PersonDAO implements IPersonDAO<Person> {
     @Override
     public List<Person> getPersonsByBirthDate(LocalDate birthDate) {
         List<Person> persons = new ArrayList<>();
-        Connection connection = connectionPool.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         String query = "SELECT * FROM people WHERE birth_date = (?);";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -170,7 +170,7 @@ public class PersonDAO implements IPersonDAO<Person> {
             LOGGER.error(e);
         } finally {
             if (connection != null) {
-                connectionPool.releaseConnection(connection);
+                ConnectionPool.releaseConnection(connection);
             }
         }
         return persons;

@@ -14,8 +14,8 @@ import java.util.List;
 public class PrescriptionDAO implements IPrescriptionDAO<Prescription> {
 
     private static final Logger LOGGER = LogManager.getLogger(PrescriptionDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static IPrescriptionDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private IPrescriptionDAO myBatisDAO;
 
     public PrescriptionDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();

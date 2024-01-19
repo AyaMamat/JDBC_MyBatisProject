@@ -96,7 +96,6 @@ public class SupplierDAO implements ISupplierDAO<Supplier> {
                 connectionPool.releaseConnection(connection);
             }
         }
-
     }
 
     @Override

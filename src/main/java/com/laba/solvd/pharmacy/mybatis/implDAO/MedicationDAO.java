@@ -13,8 +13,8 @@ import java.util.List;
 public class MedicationDAO implements IMedicationDAO<Medication> {
 
     private static final Logger LOGGER = LogManager.getLogger(MedicationDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static IMedicationDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private IMedicationDAO myBatisDAO;
 
     public MedicationDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();

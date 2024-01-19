@@ -1,6 +1,5 @@
 package com.laba.solvd.pharmacy.mybatis.implDAO;
 
-import com.laba.solvd.pharmacy.interfaces.IAddressDAO;
 import com.laba.solvd.pharmacy.interfaces.IDoctorDAO;
 import com.laba.solvd.pharmacy.model.Doctor;
 import com.laba.solvd.pharmacy.model.DoctorSpecialty;
@@ -15,8 +14,8 @@ import java.util.List;
 public class DoctorDAO implements IDoctorDAO<Doctor> {
 
     private static final Logger LOGGER = LogManager.getLogger(DoctorDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static IDoctorDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private IDoctorDAO myBatisDAO;
 
     public DoctorDAO() {
         sqlSessionFactory= MyBatisConfig.getSqlSessionFactory();

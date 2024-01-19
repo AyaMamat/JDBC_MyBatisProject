@@ -66,7 +66,6 @@ public class SaleDAO implements ISalesDAO<Sale> {
                     PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
                     Prescription prescription = prescriptionDAO.getEntityByID(rs.getInt("prescription_id"));
                     sale.setPrescription(prescription);
-
                 }
             }
         } catch (SQLException e) {
@@ -115,7 +114,6 @@ public class SaleDAO implements ISalesDAO<Sale> {
                 connectionPool.releaseConnection(connection);
             }
         }
-
     }
 
     @Override
@@ -159,7 +157,7 @@ public class SaleDAO implements ISalesDAO<Sale> {
         List<Sale> sales = new ArrayList<>();
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setDate(1,  Date.valueOf(date));
+            ps.setDate(1, Date.valueOf(date));
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Sale sale = new Sale();
@@ -174,7 +172,6 @@ public class SaleDAO implements ISalesDAO<Sale> {
                     PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
                     Prescription prescription = prescriptionDAO.getEntityByID(rs.getInt("prescription_id"));
                     sale.setPrescription(prescription);
-
                     sales.add(sale);
                 }
             }

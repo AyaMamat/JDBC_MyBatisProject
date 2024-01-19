@@ -151,7 +151,6 @@ public class DoctorDAO implements IDoctorDAO<Doctor> {
                     doctorSpecialtyList.add(specialty);
                 }
             }
-
         } catch (SQLException e) {
             LOGGER.error(e);
         } finally {

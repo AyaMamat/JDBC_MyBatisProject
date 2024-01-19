@@ -36,7 +36,6 @@ public class EmployeeDAO implements IEmployeeDAO<Employee> {
                 connectionPool.releaseConnection(connection);
             }
         }
-
     }
 
     @Override
@@ -129,7 +128,6 @@ public class EmployeeDAO implements IEmployeeDAO<Employee> {
             }
         }
         return employees;
-
     }
 
 

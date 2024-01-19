@@ -1,6 +1,5 @@
 package com.laba.solvd.pharmacy;
 
-import com.laba.solvd.pharmacy.model.Address;
 import com.laba.solvd.pharmacy.model.Person;
 import com.laba.solvd.pharmacy.parsers.parsers.JAXBParser;
 import com.laba.solvd.pharmacy.parsers.parsers.JSONParser;
@@ -18,7 +17,6 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
-
         String xmlPath = "src/main/resources/pharmacy.xml";
         String jsonPath = "src/main/resources/pharmacy.json";
         String xsdPath = "src/main/resources/pharmacy.xsd";

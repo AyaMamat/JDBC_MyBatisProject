@@ -13,8 +13,8 @@ import java.util.List;
 public class SupplierDAO implements ISupplierDAO<Supplier> {
 
     private static final Logger LOGGER = LogManager.getLogger(SupplierDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static ISupplierDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private ISupplierDAO myBatisDAO;
 
     public SupplierDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();

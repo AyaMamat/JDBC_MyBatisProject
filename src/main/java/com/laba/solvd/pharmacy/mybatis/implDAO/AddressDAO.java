@@ -13,8 +13,8 @@ import java.util.List;
 public class AddressDAO implements IAddressDAO<Address> {
 
     private static final Logger LOGGER = LogManager.getLogger(AddressDAO.class.getName());
-    private static SqlSessionFactory sqlSessionFactory;
-    private static IAddressDAO myBatisDAO;
+    private SqlSessionFactory sqlSessionFactory;
+    private IAddressDAO myBatisDAO;
 
     public AddressDAO() {
         sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
