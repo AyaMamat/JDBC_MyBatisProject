@@ -122,18 +122,19 @@ public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO<DoctorSpecialty> 
         return specialties;
     }
 
-    @Override
-    public DoctorSpecialty getDoctorSpecialtyByTitle(String title) {
+   @Override
+    public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
+        List<DoctorSpecialty> doctorSpecialtyList = new ArrayList<>();
+        String query = "SELECT * FROM doctor_specialties WHERE doctor_id = (?)";
         Connection connection = connectionPool.getConnection();
-        String query = "SELECT * FROM doctor_specialties WHERE title = ?;";
-        DoctorSpecialty doctorSpecialty = new DoctorSpecialty();
-
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, title);
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    doctorSpecialty.setDoctorSpecialtyId(rs.getInt("doctor_specialty_id"));
-                    doctorSpecialty.setTitle(rs.getString("title"));
+                while (rs.next()) {
+                    DoctorSpecialty specialty = new DoctorSpecialty();
+                    specialty.setDoctorSpecialtyId(rs.getInt("doctor_specialty_id"));
+                    specialty.setTitle(rs.getString("title"));
+                    doctorSpecialtyList.add(specialty);
                 }
             }
         } catch (SQLException e) {
@@ -143,6 +144,6 @@ public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO<DoctorSpecialty> 
                 connectionPool.releaseConnection(connection);
             }
         }
-        return doctorSpecialty;
+        return doctorSpecialtyList;
     }
 }

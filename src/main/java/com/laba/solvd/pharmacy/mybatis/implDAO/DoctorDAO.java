@@ -2,7 +2,7 @@ package com.laba.solvd.pharmacy.mybatis.implDAO;
 
 import com.laba.solvd.pharmacy.interfaces.IDoctorDAO;
 import com.laba.solvd.pharmacy.model.Doctor;
-import com.laba.solvd.pharmacy.model.DoctorSpecialty;
+import com.laba.solvd.pharmacy.model.Person;
 import com.laba.solvd.pharmacy.utils.MyBatisConfig;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -73,11 +73,10 @@ public class DoctorDAO implements IDoctorDAO<Doctor> {
     }
 
     @Override
-    public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            myBatisDAO = session.getMapper(IDoctorDAO.class);
-            LOGGER.info("Get doctor specialties by doctor ID in SqlSession");
-            return myBatisDAO.getDoctorSpecialtyByDoctorId(id);
+    public Person getByPersonLastName(String lastName) {
+        try(SqlSession sqlSession=sqlSessionFactory.openSession()) {
+            myBatisDAO=sqlSession.getMapper(IDoctorDAO.class);
+            return myBatisDAO.getByPersonLastName(lastName);
         }
     }
 }

@@ -11,8 +11,8 @@
         SELECT * FROM people
     </sql>
 
-    <select id="getEntityByID" parameterType="int" resultMap="PersonResultMap">
-        <include refid="personSelect"/>
+    <select id="getEntityByID" resultMap="PersonResultMap">
+       SELECT * FROM people
         WHERE person_id = #{id}
     </select>
 
@@ -43,7 +43,7 @@
         <result column="birth_date" property="birthDate"/>
         <result column="email" property="email"/>
         <result column="phone" property="phone"/>
-        <association property="address" columnPrefix="address_" resultMap="com.laba.solvd.pharmacy.interfaces.IAddressDAO.AddressResultMap"/>
+        <association property="address" column="address_id" resultMap="com.laba.solvd.pharmacy.interfaces.IAddressDAO.AddressResultMap"/>
     </resultMap>
 
 </mapper>

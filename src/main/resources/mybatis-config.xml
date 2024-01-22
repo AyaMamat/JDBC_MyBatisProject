@@ -15,16 +15,16 @@
     </environments>
 
     <mappers>
-        <mapper resource="mappers/AddressMapper.xml"/>
-        <mapper resource="mappers/CustomerMapper.xml"/>
-        <mapper resource="mappers/DoctorMapper.xml"/>
-        <mapper resource="mappers/DoctorSpecialtyMapper.xml"/>
-        <mapper resource="mappers/EmployeeMapper.xml"/>
-        <mapper resource="mappers/MedicationMapper.xml"/>
-        <mapper resource="mappers/PersonMapper.xml"/>
-        <mapper resource="mappers/PositionMapper.xml"/>
-        <mapper resource="mappers/PrescriptionMapper.xml"/>
-        <mapper resource="mappers/SaleMapper.xml"/>
-        <mapper resource="mappers/SupplierMapper.xml"/>
+        <mapper resource="mappers/address-mapper.xml"/>
+        <mapper resource="mappers/customer-mapper.xml"/>
+        <mapper resource="mappers/doctor-mapper.xml"/>
+        <mapper resource="mappers/doctor-specialty-mapper.xml"/>
+        <mapper resource="mappers/employee-mapper.xml"/>
+        <mapper resource="mappers/medication-mapper.xml"/>
+        <mapper resource="mappers/person-mapper.xml"/>
+        <mapper resource="mappers/position-mapper.xml"/>
+        <mapper resource="mappers/prescription-mapper.xml"/>
+        <mapper resource="mappers/sale-mapper.xml"/>
+        <mapper resource="mappers/supplier-mapper.xml"/>
     </mappers>
 </configuration>

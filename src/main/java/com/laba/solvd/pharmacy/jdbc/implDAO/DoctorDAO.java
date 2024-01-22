@@ -1,6 +1,8 @@
 package com.laba.solvd.pharmacy.jdbc.implDAO;
 
+import com.laba.solvd.pharmacy.builder.DoctorBuilder;
 import com.laba.solvd.pharmacy.interfaces.IDoctorDAO;
+import com.laba.solvd.pharmacy.model.Address;
 import com.laba.solvd.pharmacy.model.Doctor;
 import com.laba.solvd.pharmacy.model.DoctorSpecialty;
 import com.laba.solvd.pharmacy.model.Person;
@@ -16,6 +18,7 @@ public class DoctorDAO implements IDoctorDAO<Doctor> {
 
     private static final Logger LOGGER = LogManager.getLogger(DoctorDAO.class);
     private final PersonDAO personDAO = new PersonDAO();
+    private final AddressDAO addressDAO = new AddressDAO();
     private final DoctorSpecialtyDAO doctorSpecialtyDAO = new DoctorSpecialtyDAO();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -52,14 +55,14 @@ public class DoctorDAO implements IDoctorDAO<Doctor> {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    doctor = new Doctor();
-                    doctor.setDoctorId(rs.getInt("doctor_id"));
-                    int personId = rs.getInt("person_id");
-                    Person person = personDAO.getEntityByID(personId);
-                    doctor.setPerson(person);
-                    List<DoctorSpecialty> specialties = new ArrayList<>();
-                    specialties = getDoctorSpecialtyByDoctorId(doctor.getDoctorId());
-                    doctor.setSpecialties(specialties);
+                    Person person = personDAO.getEntityByID(rs.getInt("person_id"));
+                    List<DoctorSpecialty> specialties = doctorSpecialtyDAO.getDoctorSpecialtyByDoctorId(rs.getInt("doctor_id"));
+                    doctor=new DoctorBuilder()
+                            .withDoctorId(rs.getInt("doctor_id"))
+                            .withPerson(person)
+                            .withSpecialties(specialties)
+                            .build();
+
                 }
             }
         } catch (SQLException e) {
@@ -111,53 +114,53 @@ public class DoctorDAO implements IDoctorDAO<Doctor> {
     @Override
     public List<Doctor> getAll() {
         Connection connection = connectionPool.getConnection();
-        List<Doctor> doctors = new ArrayList<>();
+        List<Doctor> doctorList = new ArrayList<>();
 
         String query = "SELECT * FROM doctors;";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Doctor doctor = new Doctor();
-                    doctor.setDoctorId(rs.getInt("doctor_id"));
-                    Person person = new Person();
-                    person.setPersonId(rs.getInt("person_id"));
-                    doctor.setPerson(person);
-
-                    List<DoctorSpecialty> specialties = new ArrayList<>();
-                    specialties = getDoctorSpecialtyByDoctorId(doctor.getDoctorId());
-
-                    doctor.setSpecialties(specialties);
-                    doctors.add(doctor);
+                    Person person = personDAO.getEntityByID(rs.getInt("person_id"));
+                    List<DoctorSpecialty> specialties = doctorSpecialtyDAO.getDoctorSpecialtyByDoctorId(rs.getInt("doctor_id"));
+                    Doctor doctor=new DoctorBuilder()
+                            .withDoctorId(rs.getInt("doctor_id"))
+                            .withPerson(person)
+                            .withSpecialties(specialties)
+                            .build();
+                    doctorList.add(doctor);
                 }
             }
         } catch (SQLException e) {
             LOGGER.error(e);
         }
-        return doctors;
+        return doctorList;
     }
+
 
     @Override
-    public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
-        List<DoctorSpecialty> doctorSpecialtyList = new ArrayList<>();
-        String query = "SELECT * FROM doctor_specialties WHERE doctor_id = (?)";
+    public Person getByPersonLastName(String lastName) {
+        String query = "SELECT * FROM people WHERE last_name = (?)";
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, id);
+            ps.setString(1,lastName);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    DoctorSpecialty specialty = new DoctorSpecialty();
-                    specialty.setDoctorSpecialtyId(rs.getInt("doctor_specialty_id"));
-                    specialty.setTitle(rs.getString("title"));
-                    doctorSpecialtyList.add(specialty);
+                    Address address = addressDAO.getEntityByID(rs.getInt("address_id"));
+                    return new Person(rs.getInt("person_id"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getDate("birth_date").toLocalDate(),
+                            rs.getString("email"),
+                            rs.getString("phone"),
+                            address
+                    );
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.info(e);
         } finally {
-            if (connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
+            connectionPool.releaseConnection(connection);
         }
-        return doctorSpecialtyList;
+        return null;
     }
-}
+    }

@@ -1,7 +1,8 @@
 package com.laba.solvd.pharmacy.interfaces;
 
+import java.util.List;
 
 public interface IDoctorSpecialtyDAO<DoctorSpecialty> extends IBaseDAO<DoctorSpecialty> {
 
-    DoctorSpecialty getDoctorSpecialtyByTitle(String title);
+    List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id);
 }

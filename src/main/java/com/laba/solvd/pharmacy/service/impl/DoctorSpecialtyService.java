@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DoctorSpecialtyService implements IDoctorSpecialtyDAO<DoctorSpecialty> {
 
-    private static final DoctorSpecialtyDAO doctorSpecialtyDAO = (DoctorSpecialtyDAO) new ConnectionDAOFactory().getDAOFactory(DBConnectionType.MYBATIS).getDAO("doctor_specialty");
+    private static final DoctorSpecialtyDAO doctorSpecialtyDAO = (DoctorSpecialtyDAO) new ConnectionDAOFactory().getDAOFactory(DBConnectionType.MYBATIS).getDAO("doctor_specialties");
 
     @Override
     public void saveEntity(DoctorSpecialty doctorSpecialty) {
@@ -38,7 +38,7 @@ public class DoctorSpecialtyService implements IDoctorSpecialtyDAO<DoctorSpecial
     }
 
     @Override
-    public DoctorSpecialty getDoctorSpecialtyByTitle(String title) {
-        return doctorSpecialtyDAO.getDoctorSpecialtyByTitle(title);
+    public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
+        return doctorSpecialtyDAO.getDoctorSpecialtyByDoctorId(id);
     }
 }

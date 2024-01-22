@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,15 +13,16 @@ import java.util.Objects;
 public class Doctor {
 
     @JsonProperty("doctorId")
-    @XmlElement
+    @XmlElement(defaultValue = "0")
     private int doctorId;
 
     @JsonProperty("person")
-    @XmlElement
+    @XmlElement(defaultValue = "")
     private Person person;
 
+    @XmlElementWrapper(name = "specialties")
     @JsonProperty("specialties")
-    @XmlElement
+    @XmlElement(defaultValue = "")
     private List<DoctorSpecialty> specialties;
 
     public Doctor() {

@@ -12,11 +12,11 @@ import java.util.Objects;
 public class DoctorSpecialty {
 
     @JsonProperty("doctorSpecialtyId")
-    @XmlElement
+    @XmlElement(defaultValue = "0")
     private int doctorSpecialtyId;
 
     @JsonProperty("title")
-    @XmlElement
+    @XmlElement(defaultValue = "")
     private String title;
 
 

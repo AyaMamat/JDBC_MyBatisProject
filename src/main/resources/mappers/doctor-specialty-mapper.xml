@@ -3,13 +3,13 @@
 
 <mapper namespace="com.laba.solvd.pharmacy.interfaces.IDoctorSpecialtyDAO">
 
-    <insert id="saveEntity" keyColumn="doctor_specialty_id" keyProperty="doctorSpecialtyId" useGeneratedKeys="true">
-        INSERT INTO doctor_Specialties (title)
+    <insert id="saveEntity" parameterType="com.laba.solvd.pharmacy.model.DoctorSpecialty">
+        INSERT INTO doctor_specialties (title)
         VALUES (#{title})
     </insert>
 
     <sql id="doctorSpecialtySelect">
-        SELECT * FROM doctor_Specialties
+        SELECT * FROM doctor_specialties
     </sql>
 
     <select id="getEntityById" resultMap="DoctorSpecialtyResultMap">
@@ -17,7 +17,7 @@
         WHERE doctor_specialty_id = #{id}
     </select>
 
-    <update id="updateEntity">
+    <update id="updateEntity" parameterType="com.laba.solvd.pharmacy.model.DoctorSpecialty">
         UPDATE doctor_specialties
         SET title = #{title}
         WHERE doctor_specialty_id = #{doctorSpecialtyId}
@@ -31,12 +31,12 @@
         <include refid="doctorSpecialtySelect"/>
     </select>
 
-    <select id="getDoctorSpecialtyByTitle" resultMap="DoctorSpecialtyResultMap">
+    <select id="getDoctorSpecialtyByDoctorId" resultMap="DoctorSpecialtyResultMap">
         <include refid="doctorSpecialtySelect"/>
-        WHERE title = #{title}
+        WHERE doctor_specialty_id = #{doctorSpecialtyId}
     </select>
 
-    <resultMap id="DoctorSpecialtyResultMap" type="com.laba.solvd.pharmacy.model.DoctorSpecialty" autoMapping="false">
+    <resultMap id="DoctorSpecialtyResultMap" type="com.laba.solvd.pharmacy.model.DoctorSpecialty">
         <id column="doctor_specialty_id" property="doctorSpecialtyId"/>
         <result column="title" property="title"/>
     </resultMap>

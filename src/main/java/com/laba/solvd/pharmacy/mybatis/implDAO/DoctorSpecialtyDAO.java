@@ -71,11 +71,11 @@ public class DoctorSpecialtyDAO implements IDoctorSpecialtyDAO<DoctorSpecialty> 
     }
 
     @Override
-    public DoctorSpecialty getDoctorSpecialtyByTitle(String title) {
+    public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             myBatisDAO = session.getMapper(IDoctorSpecialtyDAO.class);
-            LOGGER.info("Get doctorSpecialty by title in SqlSession");
-            return (DoctorSpecialty) myBatisDAO.getDoctorSpecialtyByTitle(title);
+            LOGGER.info("Get doctorSpecialty by id in SqlSession");
+            return  myBatisDAO.getDoctorSpecialtyByDoctorId(id);
         }
     }
 }

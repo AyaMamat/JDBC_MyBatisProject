@@ -30,10 +30,7 @@ public class PersonService implements IPersonDAO<Person> {
     }
 
     @Override
-    public void removeEntityById(int id) {
-        personDAO.removeEntityById(id);
-
-    }
+    public void removeEntityById(int id) { personDAO.removeEntityById(id); }
 
     @Override
     public List<Person> getAll() {

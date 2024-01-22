@@ -152,10 +152,10 @@ public class SaleDAO implements ISalesDAO<Sale> {
 
     @Override
     public List<Sale> getSalesByDate(LocalDate date) {
-        Connection connection = connectionPool.getConnection();
+
         String query = "SELECT * FROM sales WHERE sale_date = ?;";
         List<Sale> sales = new ArrayList<>();
-
+        Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setDate(1, Date.valueOf(date));
             try (ResultSet rs = ps.executeQuery()) {

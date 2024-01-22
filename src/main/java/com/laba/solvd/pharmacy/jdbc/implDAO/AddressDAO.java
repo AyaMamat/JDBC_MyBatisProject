@@ -44,18 +44,13 @@ public class AddressDAO implements IAddressDAO<Address> {
     public Address getEntityByID(int id) {
         Connection connection = connectionPool.getConnection();
         String readQuery = "SELECT * FROM addresses WHERE address_id =(?);";
-        Address address = new Address();
 
         try (PreparedStatement ps = connection.prepareStatement(readQuery)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    address.setAddressId(rs.getInt("address_id"));
-                    address.setStreet(rs.getString("street"));
-                    address.setCity(rs.getString("city"));
-                    address.setState(rs.getString("state"));
-                    address.setZipCode(rs.getInt("zip_code"));
-                    address.setCountry(rs.getString("country"));
+                while(rs.next()) {
+                    return new Address(rs.getInt("address_id"),rs.getString("street"),rs.getString("city"),
+                            rs.getString("state"),rs.getInt("zip_code"),rs.getString("country"));
                 }
             }
         } catch (SQLException e) {
@@ -65,7 +60,7 @@ public class AddressDAO implements IAddressDAO<Address> {
                 connectionPool.releaseConnection(connection);
             }
         }
-        return address;
+        return null;
     }
 
     @Override

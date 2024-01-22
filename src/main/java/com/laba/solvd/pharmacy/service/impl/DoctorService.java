@@ -1,5 +1,6 @@
 package com.laba.solvd.pharmacy.service.impl;
 
+import com.laba.solvd.pharmacy.model.Person;
 import com.laba.solvd.pharmacy.mybatis.implDAO.DoctorDAO;
 import com.laba.solvd.pharmacy.interfaces.IDoctorDAO;
 import com.laba.solvd.pharmacy.factory.ConnectionDAOFactory;
@@ -39,7 +40,7 @@ public class DoctorService implements IDoctorDAO<Doctor> {
     }
 
     @Override
-    public List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id) {
-        return doctorDAO.getDoctorSpecialtyByDoctorId(id);
+    public Person getByPersonLastName(String lastName) {
+        return doctorDAO.getByPersonLastName(lastName);
     }
 }

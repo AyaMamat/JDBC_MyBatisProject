@@ -1,10 +1,9 @@
 package com.laba.solvd.pharmacy.interfaces;
 
-import com.laba.solvd.pharmacy.model.DoctorSpecialty;
-
-import java.util.List;
+import com.laba.solvd.pharmacy.model.Person;
 
 public interface IDoctorDAO<Doctor> extends IBaseDAO<Doctor> {
 
-    List<DoctorSpecialty> getDoctorSpecialtyByDoctorId(int id);
+    Person getByPersonLastName(String lastName);
+
 }
