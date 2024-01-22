@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IDoctorSpecialtyDAO">
+
+    <insert id="saveEntity" parameterType="com.laba.solvd.pharmacy.model.DoctorSpecialty">
+        INSERT INTO doctor_specialties (title)
+        VALUES (#{title})
+    </insert>
+
+    <sql id="doctorSpecialtySelect">
+        SELECT * FROM doctor_specialties
+    </sql>
+
+    <select id="getEntityById" resultMap="DoctorSpecialtyResultMap">
+        <include refid="doctorSpecialtySelect"/>
+        WHERE doctor_specialty_id = #{id}
+    </select>
+
+    <update id="updateEntity" parameterType="com.laba.solvd.pharmacy.model.DoctorSpecialty">
+        UPDATE doctor_specialties
+        SET title = #{title}
+        WHERE doctor_specialty_id = #{doctorSpecialtyId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM doctor_specialties WHERE doctor_specialty_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="DoctorSpecialtyResultMap">
+        <include refid="doctorSpecialtySelect"/>
+    </select>
+
+    <select id="getDoctorSpecialtyByDoctorId" resultMap="DoctorSpecialtyResultMap">
+        <include refid="doctorSpecialtySelect"/>
+        WHERE doctor_specialty_id = #{doctorSpecialtyId}
+    </select>
+
+    <resultMap id="DoctorSpecialtyResultMap" type="com.laba.solvd.pharmacy.model.DoctorSpecialty">
+        <id column="doctor_specialty_id" property="doctorSpecialtyId"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+</mapper>

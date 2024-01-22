@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IPrescriptionDAO">
+    <insert id="saveEntity" keyColumn="prescription_id" keyProperty="prescriptionId" useGeneratedKeys="true">
+        INSERT INTO Prescriptions (prescription_date, quantity, dosage, doctor_id, customer_id)
+        VALUES (#{prescriptionDate}, #{quantity}, #{dosage}, #{doctorId}, #{customerId})
+    </insert>
+
+    <sql id="prescriptionSelect">
+        SELECT * FROM prescriptions
+    </sql>
+
+    <select id="getEntityByID" resultMap="PrescriptionResultMap">
+        <include refid="prescriptionSelect"/>
+        WHERE prescription_id = #{id}
+    </select>
+
+    <update id="updateEntity">
+        UPDATE prescriptions
+        SET prescription_date = #{prescriptionDate}, quantity = #{quantity}, dosage = #{dosage},
+        doctor_id = #{doctorId}, customer_id = #{customerId}
+        WHERE prescription_id = #{prescriptionId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM prescriptions WHERE prescription_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="PrescriptionResultMap">
+        <include refid="prescriptionSelect"/>
+    </select>
+
+    <select id="getPrescriptionByCustomerId" resultMap="PrescriptionResultMap">
+        <include refid="prescriptionSelect"/>
+        WHERE customer_id = #{customerId}
+    </select>
+
+    <resultMap id="PrescriptionResultMap" type="com.laba.solvd.pharmacy.model.Prescription" autoMapping="false">
+        <id column="prescription_id" property="prescriptionId"/>
+        <result column="prescription_date" property="prescriptionDate"/>
+        <result column="quantity" property="quantity"/>
+        <result column="dosage" property="dosage"/>
+        <result column="doctor_id" property="doctorId"/>
+        <result column="customer_id" property="customerId"/>
+    </resultMap>
+
+</mapper>

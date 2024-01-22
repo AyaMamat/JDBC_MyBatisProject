@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.pharmacy.interfaces.IDoctorDAO">
+
+    <insert id="saveEntity" parameterType="com.laba.solvd.pharmacy.model.Doctor">
+        INSERT INTO doctors (person_id)
+        VALUES (#{person.personId})
+    </insert>
+
+    <sql id="doctorSelect">
+        SELECT * FROM doctors
+    </sql>
+
+    <select id="getEntityById" resultMap="DoctorResultMap">
+        <include refid="doctorSelect"/>
+        WHERE doctor_id = #{id}
+    </select>
+
+    <update id="updateEntity" parameterType="com.laba.solvd.pharmacy.model.Doctor">
+        UPDATE doctors
+        SET person_id = #{person.personId}
+        WHERE doctor_id = #{doctorId}
+    </update>
+
+    <delete id="removeEntityById">
+        DELETE FROM doctors WHERE doctor_id = #{id}
+    </delete>
+
+    <select id="getAll" resultMap="DoctorResultMap">
+        <include refid="doctorSelect"/>
+    </select>
+
+    <resultMap id="DoctorResultMap" type="com.laba.solvd.pharmacy.model.Doctor" >
+        <id column="doctor_id" property="doctorId"/>
+    <association property="person" column="person_id" javaType="com.laba.solvd.pharmacy.model.Person"
+        select="com.laba.solvd.pharmacy.interfaces.IPersonDAO.getEntityByID"
+        fetchType="eager" />
+    <collection
+            property="specialties"
+            column="doctor_specialty_id"
+            javaType="List"
+            ofType="com.laba.solvd.pharmacy.model.DoctorSpecialty"
+            fetchType="eager"
+    />
+    </resultMap>
+
+</mapper>
